@@ -1,4 +1,4 @@
-$(function () {
+/* $(function () {
   $("#addBtn").click(addRecipie);
 });
 
@@ -38,3 +38,4 @@ function loadRecipies() {
       }
     });
   }
+ */
