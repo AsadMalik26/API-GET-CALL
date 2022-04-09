@@ -32,8 +32,15 @@
           </div>
           <div class="modal-body">
             <input type="hidden" id="updateID"> <br>
-            <input type="text" id="updateTitle"> <br>
-            <input type="text" id="updateBody">
+            <div class="form-group">
+              <label for="updateTitle">Update Title</label>
+              <input type="text" name="updateTitle" id="updateTitle" class="form-control" placeholder="Title" aria-describedby="updateTitleHelpID">
+              <small id="updateTitleHelpID" class="text-muted">Update Title</small>
+            </div>
+            <div class="form-group">
+              <label for="updateBody">Update Body</label>
+              <textarea class="form-control" name="updateBody" id="updateBody" rows="3"></textarea>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" id="updateSave" class="btn btn-primary">Update</button>
