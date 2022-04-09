@@ -1,8 +1,40 @@
 $(function () {
   loadRecipie();
   $("#recipie").on("click", ".btn-danger", handleDelete);
+  $("#recipie").on("click", ".btn-warning", handleUpdate);
+  $("#updateSave").click(function () {
+    var id = $("#updateID").val();
+    var title = $("#updateTitle").val();
+    var body = $("#updateBody").val();
+    $.ajax({
+      url: "https://usman-recipes.herokuapp.com/api/recipes/" + id,
+      data: { title, body },
+      method: "PUT",
+      success: function () {
+        // console.log(response);
+        loadRecipie();
+        $("#updateModal").modal("hide");
+      },
+    });
+  });
   $("#addBtn").click(addRecipie);
 });
+
+function handleUpdate() {
+  // console.log("edit clicked");
+  var btn = $(this);
+  var parentDiv = btn.closest(".recipie");
+  let id = parentDiv.attr("data-id");
+  $.get(
+    "https://usman-recipes.herokuapp.com/api/recipes/" + id,
+    function (response) {
+      $("#updateID").val(response._id);
+      $("#updateTitle").val(response.title);
+      $("#updateBody").val(response.body);
+      $("#updateModal").modal("show");
+    }
+  );
+} //end handleUpdate()
 
 function addRecipie() {
   var title = $("#title").val();
@@ -13,31 +45,30 @@ function addRecipie() {
     data: { title, body },
     success: function (response) {
       console.log(response);
-       loadRecipie();
+      loadRecipie();
     },
   });
-}
-
+} //end addRecipie()
 function handleDelete() {
   var btn = $(this);
   var parentDiv = btn.closest(".recipie");
   let id = parentDiv.attr("data-id");
   console.log(id);
   $.ajax({
-    url:"https://usman-recipes.herokuapp.com/api/recipes/"+id,
+    url: "https://usman-recipes.herokuapp.com/api/recipes/" + id,
     method: "DELETE",
-    error: function(){
+    error: function () {
       var recipie = $("#recipie");
       recipie.empty();
       recipie.append("An Error has been occured");
     },
-    success: function(){
+    success: function () {
       loadRecipie();
-    }
+    },
   });
   //you can use spinner to show this is requesting
   // console.log("handle Delete");
-}//end handleDelete()
+} //end handleDelete()
 function loadRecipie() {
   $.ajax({
     url: "https://usman-recipes.herokuapp.com/api/recipes",
@@ -54,4 +85,4 @@ function loadRecipie() {
       }
     },
   });
-}//end loadRecipie()
+} //end loadRecipie()
