@@ -1,9 +1,9 @@
 $(function () {
   loadRecipie();
   $("#recipie").on("click", ".btn-danger", handleDelete);
-  //$("#addBtn").click(addRecipie);
+  $("#addBtn").click(addRecipie);
 });
-/*
+
 function addRecipie() {
   var title = $("#title").val();
   var body = $("#body").val();
@@ -13,11 +13,11 @@ function addRecipie() {
     data: { title, body },
     success: function (response) {
       console.log(response);
-    //   loadRecipie();
+       loadRecipie();
     },
   });
 }
-*/
+
 function handleDelete() {
   var btn = $(this);
   var parentDiv = btn.closest(".recipie");
@@ -26,12 +26,18 @@ function handleDelete() {
   $.ajax({
     url:"https://usman-recipes.herokuapp.com/api/recipes/"+id,
     method: "DELETE",
+    error: function(){
+      var recipie = $("#recipie");
+      recipie.empty();
+      recipie.append("An Error has been occured");
+    },
     success: function(){
       loadRecipie();
     }
   });
+  //you can use spinner to show this is requesting
   // console.log("handle Delete");
-}
+}//end handleDelete()
 function loadRecipie() {
   $.ajax({
     url: "https://usman-recipes.herokuapp.com/api/recipes",
@@ -48,4 +54,4 @@ function loadRecipie() {
       }
     },
   });
-}
+}//end loadRecipie()
