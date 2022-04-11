@@ -2,6 +2,7 @@ $(function () {
   loadRecipie();
   $("#recipie").on("click", ".btn-danger", handleDelete);
   $("#recipie").on("click", ".btn-warning", handleUpdate);
+  $("#addBtn").click(addRecipie);
   $("#updateSave").click(function () {
     var id = $("#updateID").val();
     var title = $("#updateTitle").val();
@@ -17,7 +18,6 @@ $(function () {
       },
     });
   });
-  $("#addBtn").click(addRecipie);
 });
 
 function handleUpdate() {
@@ -46,6 +46,7 @@ function addRecipie() {
     success: function (response) {
       console.log(response);
       loadRecipie();
+      $("#addRecipie").modal("hide");
     },
   });
 } //end addRecipie()
